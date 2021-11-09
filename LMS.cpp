@@ -14,9 +14,11 @@ class library
     public:
         Node *head=NULL;
         void menu();
+        void displayAll();
         void insert();
         void search();
         void update();
+        void delete();
          Node *search_supporting(int id)
         {
             if(head==NULL)
@@ -26,8 +28,6 @@ class library
             }
             else
             {
-                
-            
             Node *temp=head;
             while(temp!= NULL)
             {
@@ -44,6 +44,42 @@ class library
         }
        
 };
+void library::delete();
+{
+                cout<<"\n\n\t\t\t=========================================================";
+                cout<<"\n\n\t\t\t================LIBRARY MANAGEMENT SYSTEM================";
+                cout<<"\n\n\t\t\t=========================================================";
+                cout<<"\n\n  Delete a record........!";
+                int id;
+                cout<<"\n\n BookId"
+                
+    
+}
+void library::displayAll()
+{
+    cout<<"\n\n\t\t\t=========================================================";
+    cout<<"\n\n\t\t\t================LIBRARY MANAGEMENT SYSTEM================";
+    cout<<"\n\n\t\t\t=========================================================";
+
+    if(head==NULL)
+    {
+        cout<<"There is no data to show!!";
+    }
+    else
+    {
+        Node *ptr=head;
+        while(ptr != NULL)
+        {
+                cout<<"\n\n Book id : "<<ptr->id;
+                cout<<"\n\n Book Name : "<<ptr->name;
+                cout<<"\n\n Author Name : "<<ptr->author;
+                cout<<"\n\n Publisher Name : "<<ptr->publisher;
+                cout<<"\n\n\t\t\t=========================================================";
+                ptr =ptr->next_add;
+        }
+    }
+    
+}
 
 void library::update()
 {
@@ -58,24 +94,40 @@ void library::update()
     }
     else
     {
-        j:
+    
         cout<<"Update book details";
         cout<<"Book id : ";
         cin>>id;
-         if(true)
+        Node *temp_node=search_supporting(id);
+        if(temp_node==NULL)
         {
-                cout<<"Invalid Id does not exist!!";
-                goto j;
+            cout<<"Invalid id to update";
         }
         else
         {
-            Node* temp=head;
-            while(temp->id != id)
+            int id_check;
+            cout<<"\n\nBook Id : ";
+            cin>>id_check;
+            cout<<"\n\nVerifying Id";
+            Node *ptr=search_supporting(id_check);
+            if(ptr==NULL || id_check==id)
             {
-                temp=temp->next_add;
+                           temp_node->id=id_check;
+                           cout<<"Valid Id!!..continue filling details";
+                           cout<<"Name : ";
+                           cin>>temp_node->name;
+                           cout<<" Author Name : ";
+                           cin>>temp_node->author;
+                           cout<<" Publisher name: ";
+                            cin>>temp_node->publisher;
+                            cout<<"Details updated successfully......!";
+                            
+                
             }
+
             
         }
+         
     }
 }
 void library::search()
@@ -143,13 +195,13 @@ void library :: menu()
            
             break;
         case 3:
-           
+            update();
             break;
         case 4:
-         
+            delete();
             break;
         case 5:
-           
+            displayAll();
             break;
         case 6:
             exit(0);
@@ -160,6 +212,7 @@ void library :: menu()
     goto p;
    
 }
+
 void library :: insert()
 {
     
@@ -172,8 +225,8 @@ void library :: insert()
     cin>>temp_node->id;
     cout<<"\n\nVerifying Id";
     Node *ptr=search_supporting(temp_node->id);
-    
-    if(ptr!=0)
+    cout<<" here is the ptr : "<<ptr;
+    if(ptr!=NULL)
     {
         cout<<"\n\nInvalid Id alreay exist !!";
         goto q;
@@ -203,9 +256,6 @@ void library :: insert()
     }
     cout<<"Record added successfully........................";
 }
-
-
-
 int main()
 {
     library obj;
